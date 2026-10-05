@@ -1,12 +1,12 @@
 # Supply Chain Analytics
 
-I'm building this project to practice a realistic supply chain analysis workflow while strengthening my Python, SQL, statistics, and data visualization skills.
+This is a practice supply chain analytics project focused on shipment cost, delivery performance, vendors, countries, products, and logistics patterns using real public data.
 
-The project is still in progress, and I'll keep updating this README as I work through the data and learn new tools.
+The project is in progress, and I’ll continue updating the analysis, code, SQL, and visualizations as each stage is completed.
 
 ## Dataset
 
-For this project, I'm using the **USAID Supply Chain Shipment Pricing / SCMS Delivery History dataset**. I chose it because it contains real public shipment data rather than a small synthetic example, while still being manageable enough to explore step by step.
+For this project, I’m using the **USAID Supply Chain Shipment Pricing / SCMS Delivery History dataset**. I chose it because it contains real public shipment data and gives me enough detail to explore freight cost, delivery timing, vendors, countries, shipment modes, products, and order-level information.
 
 The dataset includes information such as shipment mode, destination country, vendor, freight cost, shipment weight, product details, and delivery dates.
 
@@ -20,9 +20,9 @@ My first questions are:
 - How closely do scheduled and actual delivery dates line up?
 - Are there patterns in delays by shipment mode, vendor, country, or product group?
 
-These questions may change as I understand the dataset better.
+These questions may change as I explore the dataset and identify which patterns are most useful to investigate.
 
-## Tools I plan to use
+## Tools used in this project
 
 - Python
 - NumPy and pandas
@@ -32,7 +32,7 @@ These questions may change as I understand the dataset better.
 - Tableau or Power BI
 - Git and GitHub
 
-As I get further into data engineering and machine learning, I may extend this project into a small ETL workflow and a prediction problem if the data supports it.
+If the data supports it, I may later extend the project with a small ETL workflow and a prediction problem.
 
 ## Repository structure
 
@@ -58,8 +58,8 @@ supply-chain-analytics/
 - [ ] Build a dashboard
 - [ ] Summarize the main findings and recommendations
 
-## What I'm working on now
+## Current work
 
-The dataset is selected. My next step is to inspect the file before doing any analysis: number of rows and columns, column names, data types, missing values, and a few sample records.
+The dataset is selected. The next step is to inspect the file before doing any analysis: number of rows and columns, column names, data types, missing values, and a few sample records.
 
-I want to understand what the data actually contains before deciding which questions are worth pursuing.
+This first inspection will help determine which business questions are best supported by the data.
