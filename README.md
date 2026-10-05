@@ -1,22 +1,28 @@
 # Supply Chain Analytics
 
-I'm building this project to practice a realistic supply chain analysis workflow while strengthening my Python, SQL, statistics, and data visualization skills.
+This is a practice supply chain analytics project focused on shipment cost, delivery performance, vendors, countries, products, and logistics patterns using real public data.
 
-The project is still in progress, and I'll keep updating this README as I work through the data and learn new tools.
+The project is in progress, and I’ll continue updating the analysis, code, SQL, and visualizations as each stage is completed.
+
+## Dataset
+
+For this project, I’m using the **USAID Supply Chain Shipment Pricing / SCMS Delivery History dataset**. I chose it because it contains real public shipment data and gives me enough detail to explore freight cost, delivery timing, vendors, countries, shipment modes, products, and order-level information.
+
+The dataset includes information such as shipment mode, destination country, vendor, freight cost, shipment weight, product details, and delivery dates.
 
 ## What I want to analyze
 
-Once I choose the dataset, I want to look at questions such as:
+My first questions are:
 
-- Which products or suppliers generate the most revenue?
-- Which suppliers have longer lead times or weaker delivery performance?
-- Where could inventory levels create stockout or overstock risk?
-- How do shipping methods compare on cost and delivery performance?
-- Which products or suppliers have higher defect rates?
+- Which shipment modes are used most often, and how do their costs compare?
+- Which countries and vendors account for the most shipments?
+- What factors appear to be associated with higher freight costs?
+- How closely do scheduled and actual delivery dates line up?
+- Are there patterns in delays by shipment mode, vendor, country, or product group?
 
-These questions may change once I understand the dataset better.
+These questions may change as I explore the dataset and identify which patterns are most useful to investigate.
 
-## Tools I plan to use
+## Tools used in this project
 
 - Python
 - NumPy and pandas
@@ -26,7 +32,7 @@ These questions may change once I understand the dataset better.
 - Tableau or Power BI
 - Git and GitHub
 
-As I get further into data engineering and machine learning, I may extend this project if those tools make sense for the problem.
+If the data supports it, I may later extend the project with a small ETL workflow and a prediction problem.
 
 ## Repository structure
 
@@ -43,7 +49,7 @@ supply-chain-analytics/
 
 ## Project progress
 
-- [ ] Choose and document a public or synthetic dataset
+- [x] Choose and document a public dataset
 - [ ] Understand the columns and data types
 - [ ] Check data quality and clean the dataset
 - [ ] Explore the data with Python
@@ -52,8 +58,8 @@ supply-chain-analytics/
 - [ ] Build a dashboard
 - [ ] Summarize the main findings and recommendations
 
-## What I'm working on now
+## Current work
 
-I'm currently choosing the dataset for this project. I want something realistic enough to analyze products, suppliers, inventory, shipping, lead times, and quality without using any private company data.
+The dataset is selected. The next step is to inspect the file before doing any analysis: number of rows and columns, column names, data types, missing values, and a few sample records.
 
-Once I choose it, my first step will be to understand the columns, data types, missing values, and overall structure before doing any analysis.
+This first inspection will help determine which business questions are best supported by the data.
