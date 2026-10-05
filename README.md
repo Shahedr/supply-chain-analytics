@@ -1,62 +1,59 @@
 # Supply Chain Analytics
 
-An end-to-end portfolio project focused on using data to understand supply chain performance, identify operational risks, and support better business decisions.
+I'm building this project to practice a realistic supply chain analysis workflow while strengthening my Python, SQL, statistics, and data visualization skills.
 
-> **Status:** In development. This project is being built in public as part of my progression from analytics into data science, machine learning, and data engineering.
+The project is still in progress, and I'll keep updating this README as I work through the data and learn new tools.
 
-## Project Goals
+## What I want to analyze
 
-This project will analyze supply chain data across products, suppliers, inventory, fulfillment, shipping, and quality. The goal is to move beyond isolated exercises and build a realistic analytics workflow from raw data to business recommendations.
+Once I choose the dataset, I want to look at questions such as:
 
-## Business Questions
-
-The analysis will explore questions such as:
-
-- Which products and suppliers contribute the most revenue?
-- Which suppliers have the longest lead times or weakest delivery performance?
-- Where are inventory levels most likely to create stockout or overstock risk?
+- Which products or suppliers generate the most revenue?
+- Which suppliers have longer lead times or weaker delivery performance?
+- Where could inventory levels create stockout or overstock risk?
 - How do shipping methods compare on cost and delivery performance?
-- Which products or suppliers show the highest defect or quality risk?
-- What operational patterns could be improved through better planning?
+- Which products or suppliers have higher defect rates?
 
-## Planned Tech Stack
+These questions may change once I understand the dataset better.
 
-- **Python:** NumPy, pandas, Matplotlib
-- **SQL:** PostgreSQL
-- **Statistics:** descriptive analysis, distributions, relationships, and hypothesis-driven analysis where appropriate
-- **Visualization:** Tableau or Power BI
-- **Version Control:** Git & GitHub
+## Tools I plan to use
 
-Later versions may extend the project with ETL, dbt, workflow orchestration, and machine learning where they add genuine value.
+- Python
+- NumPy and pandas
+- Matplotlib
+- SQL and PostgreSQL
+- Statistics
+- Tableau or Power BI
+- Git and GitHub
 
-## Repository Structure
+As I get further into data engineering and machine learning, I may extend this project if those tools make sense for the problem.
+
+## Repository structure
 
 ```text
 supply-chain-analytics/
-├── data/          # Data documentation and project datasets
-├── notebooks/     # Exploration, cleaning, and analysis notebooks
+├── data/          # Dataset and data notes
+├── notebooks/     # Exploration, cleaning, and analysis
 ├── src/           # Reusable Python code
 ├── sql/           # SQL queries and database work
-├── dashboards/    # Dashboard files, exports, and screenshots
-├── docs/          # Project planning and supporting documentation
-└── README.md      # Project overview and final findings
+├── dashboards/    # Dashboard files and screenshots
+├── docs/          # Project notes and planning
+└── README.md      # Project overview and findings
 ```
 
-## Project Roadmap
+## Project progress
 
-- [ ] Select and document a suitable public or synthetic dataset
-- [ ] Understand the dataset and define business questions
-- [ ] Clean and validate the data with Python
-- [ ] Perform exploratory data analysis
-- [ ] Load relevant data into PostgreSQL
-- [ ] Answer business questions with SQL
-- [ ] Apply appropriate statistical analysis
-- [ ] Build a business-facing dashboard
-- [ ] Summarize findings and recommendations
-- [ ] Refactor reusable code and polish the repository
+- [ ] Choose and document a public or synthetic dataset
+- [ ] Understand the columns and data types
+- [ ] Check data quality and clean the dataset
+- [ ] Explore the data with Python
+- [ ] Use SQL to answer business questions
+- [ ] Add statistical analysis where useful
+- [ ] Build a dashboard
+- [ ] Summarize the main findings and recommendations
 
-## Current Milestone
+## What I'm working on now
 
-**Project setup and data selection.**
+I'm currently choosing the dataset for this project. I want something realistic enough to analyze products, suppliers, inventory, shipping, lead times, and quality without using any private company data.
 
-The next step is to choose a dataset, understand its columns and limitations, and begin the first real Python data-analysis workflow.
+Once I choose it, my first step will be to understand the columns, data types, missing values, and overall structure before doing any analysis.
