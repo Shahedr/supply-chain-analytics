@@ -6,9 +6,9 @@
 
 ## Why I chose it
 
-I wanted a dataset that felt closer to a real supply chain problem than a small synthetic practice file. This dataset gives me enough information to work with shipment cost, delivery timing, vendors, countries, shipment modes, products, and order details.
+I wanted a dataset that felt closer to a real supply chain problem than a small synthetic example. This dataset gives the project enough depth to analyze shipment cost, delivery timing, vendors, countries, shipment modes, products, and order details.
 
-It is also a manageable size for learning. I can use the same data first for Python and exploratory analysis, then SQL and visualization, and potentially extend the project into machine learning later.
+It is also large enough to support multiple stages of the project, including Python analysis, SQL queries, visualization, and potentially a prediction problem later.
 
 ## Source
 
@@ -16,16 +16,18 @@ It is also a manageable size for learning. I can use the same data first for Pyt
 - Data.gov listing: https://catalog.data.gov/dataset/supply-chain-shipment-pricing-data
 - Common file name: `SCMS_Delivery_History_Dataset.csv`
 
-## What I expect to practice with it
+## Project scope
 
-- Reading and inspecting CSV data with pandas
-- Understanding column types and missing values
-- Cleaning dates and numeric fields
-- Grouping and comparing shipment performance
-- Writing SQL queries against cleaned data
-- Building supply chain KPIs and visualizations
-- Testing whether the dataset supports a useful prediction problem later
+This dataset will be used to:
+
+- inspect and validate raw CSV data
+- clean dates, numeric fields, and missing values
+- compare shipment cost and delivery performance
+- analyze vendors, countries, shipment modes, and products
+- write SQL queries against cleaned data
+- build supply chain KPIs and visualizations
+- evaluate whether the data supports a useful prediction problem later
 
 ## Notes
 
-I have not analyzed the dataset yet. The next step is to inspect the file and confirm what each column actually contains before finalizing the analysis questions.
+The dataset has not been analyzed yet. The next step is to inspect the file and confirm what each column contains before finalizing the analysis questions.
