@@ -43,15 +43,15 @@ supply-chain-analytics/
 ├── src/           # Reusable Python code
 ├── sql/           # SQL queries and database work
 ├── dashboards/    # Dashboard files and screenshots
-├── docs/          # Project notes and planning
+├── docs/           # Project notes and planning
 └── README.md      # Project overview and findings
 ```
 
 ## Project progress
 
 - [x] Choose and document a public dataset
-- [ ] Understand the columns and data types
-- [ ] Check data quality and clean the dataset
+- [x] Understand the columns and data types
+- [x] Check data quality and clean the dataset
 - [ ] Explore the data with Python
 - [ ] Use SQL to answer business questions
 - [ ] Add statistical analysis where useful
@@ -60,6 +60,6 @@ supply-chain-analytics/
 
 ## Current work
 
-The dataset is selected. The next step is to inspect the file before doing any analysis: number of rows and columns, column names, data types, missing values, and a few sample records.
+Initial inspection and cleaning are complete. The dataset has been checked for duplicates, key date fields have been converted to usable date types, weight and freight cost have been converted to numeric fields where possible, and delivery timing has been calculated with extreme values flagged for later review.
 
-This first inspection will help determine which business questions are best supported by the data.
+Next: explore the cleaned data in Python and start answering the project’s business questions.
