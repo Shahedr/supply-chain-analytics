@@ -1,11 +1,10 @@
-# Notebooks
+# Analysis Scripts
 
-Exploratory notebooks will live here.
+This folder contains the Python analysis sequence used in the project:
 
-Planned workflow:
-1. Data inspection
-2. Data cleaning
-3. Exploratory analysis
-4. Statistical analysis
+1. `01_data_inspection.py` — schema, missing values, cardinality, and source-field checks
+2. `02_data_cleaning.py` — dates, numeric freight/weight fields, delivery difference, and extreme-value flag
+3. `03_exploratory_analysis.py` — shipment mix, country/vendor concentration, freight summaries, delivery timing, and generated charts
+4. `04_statistical_analysis.py` — Spearman, Kruskal-Wallis, and chi-square checks
 
-Notebooks will prioritize clear reasoning, readable outputs, and documented business questions rather than tutorial-style exercises.
+The files are numbered in the order they run. `run_pipeline.py` executes the same sequence after downloading the public source data.
