@@ -1,12 +1,8 @@
-# Business Findings and Recommendations
+# Supply Chain Findings
 
-## Executive summary
+I used the SCMS delivery-history data to look at shipment mix, delivery timing, freight/weight quality, and where simple summary statistics can be misleading.
 
-This case study analyzes **10,324 shipment records** from the USAID / PEPFAR SCMS Delivery History dataset. The goal is to understand shipment mix, freight-data quality, delivery timing, and the analytical trade-offs that matter when using operational supply-chain data.
-
-## Verified findings
-
-### 1. Air is the dominant recorded shipment mode
+## 1. Most records are air shipments
 
 | Shipment mode | Records | Share |
 |---|---:|---:|
@@ -16,9 +12,9 @@ This case study analyzes **10,324 shipment records** from the USAID / PEPFAR SCM
 | Ocean | 371 | 3.59% |
 | Missing | 360 | 3.49% |
 
-**Implication:** mode-level analysis should be weighted by shipment volume. Air represents the majority of records, while conclusions about Ocean and Air Charter are based on much smaller groups.
+Air accounts for the majority of rows in the dataset. That matters because an overall average can end up describing air shipments more than the other modes. I would compare modes separately before using an overall freight or delivery KPI.
 
-### 2. Typical delivery timing is close to the scheduled date, but the distribution contains large extremes
+## 2. The median delivery difference is more useful than the mean by itself
 
 - Mean delivered-minus-scheduled difference: **-6.02 days**
 - Median: **0 days**
@@ -26,38 +22,43 @@ This case study analyzes **10,324 shipment records** from the USAID / PEPFAR SCM
 - 75th percentile: **0 days**
 - Minimum: **-372 days**
 - Maximum: **192 days**
-- Extreme observations outside +/-100 days: **216 records (2.09%)**
+- Records outside ±100 days: **216 (2.09%)**
 
-**Implication:** the mean alone is not a good summary of delivery performance. The median and segmented distributions are more robust, while extreme records should be investigated separately instead of automatically deleted.
+The typical record is close to its scheduled date, but there are large early and late values in the tails. Because of that, I would report the median and distribution by shipment mode alongside the mean rather than using one average as the delivery-performance story.
 
-### 3. Freight and weight require careful missing-value treatment
+I kept the extreme rows and flagged them instead of deleting them. They may be data-entry problems, but they may also represent unusual operational situations that deserve separate review.
+
+## 3. “Missing” freight and weight are not always missing in the usual sense
 
 - Numeric shipment weight available: **6,372 records (61.72%)**
 - Numeric freight cost available: **6,198 records (60.03%)**
 
-The source columns also contain meaningful operational text such as freight being included in commodity cost, invoiced separately, or weight being captured separately.
+Some source values contain text such as freight being included in commodity cost, invoiced separately, or weight being captured separately. Replacing those entries with zero would change their meaning.
 
-**Implication:** replacing non-numeric freight or weight values with zero would create false information. The project preserves the original source fields and creates separate numeric analysis fields.
+For analysis, I created separate numeric fields and left the original source columns intact.
 
-## Recommendations
+## How I would use these findings
 
-1. **Use robust delivery KPIs.** Report median delivery difference and late-rate by shipment mode alongside the mean.
-2. **Segment before comparing cost.** Freight comparisons should control for shipment mode and weight where numeric data is available.
-3. **Treat missingness as information.** Keep source text that explains why freight or weight is not numeric.
-4. **Review extremes separately.** Investigate the 216 extreme date differences for data-entry issues, exceptional orders, or legitimate operational events.
-5. **Avoid causal claims.** This is observational shipment data; associations between mode, weight, freight, country, vendor, and timing do not prove causation.
-6. **Respect dataset scope.** The source should not be interpreted as a complete view of all PEPFAR purchases or total landed cost. Order-level records may also represent split shipments with different freight components or delivery dates.
+- report median delivery difference and late rate by shipment mode, not only an overall average
+- compare freight cost within similar shipment modes and weight ranges
+- keep operational text that explains why a numeric value is unavailable
+- review the 216 extreme delivery differences separately before deciding whether any are data-quality errors
+- avoid treating correlations in this observational dataset as causal relationships
 
-## Reproducible next-level analysis
+## Additional analysis in the repo
 
-The repository includes scripts that calculate the following directly from the cleaned dataset:
+The Python and SQL files also cover:
 
 - top destination countries and vendors
-- median and mean freight cost by shipment mode
-- late-rate and delivery timing by shipment mode
-- freight-per-kilogram comparisons where both fields are numeric
+- mean and median freight cost by shipment mode
+- delivery timing and late rate by mode
+- freight per kilogram where both fields are numeric
 - Spearman correlation between shipment weight and freight cost
-- Kruskal-Wallis comparison of freight distributions across modes
+- Kruskal-Wallis comparison of freight distributions across shipment modes
 - chi-square association between shipment mode and delivery status
 
-These outputs are generated locally rather than hard-coded so the analysis remains auditable and reproducible.
+Those outputs are calculated from the cleaned dataset when the pipeline runs rather than copied into the repo as fixed conclusions.
+
+## Dataset scope
+
+The source should not be interpreted as a complete view of all PEPFAR purchases or total landed cost. Some orders may also appear across multiple shipment records, so order-level and shipment-level questions should not be mixed without checking the grain first.
