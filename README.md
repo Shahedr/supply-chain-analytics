@@ -1,124 +1,84 @@
 # Supply Chain Analytics
 
-End-to-end supply chain analytics case study using the **USAID / PEPFAR SCMS Delivery History dataset** to examine shipment mix, freight cost, delivery timing, data quality, vendors, countries, and logistics patterns.
+I built this project around the **USAID / PEPFAR SCMS Delivery History dataset** because it combines useful business questions with the kind of messy operational data that shows up in real analysis work: dates, shipment modes, vendor/country fields, freight costs, weights, and inconsistent source values.
 
-This project demonstrates a complete analytics workflow: **data inspection → cleaning → exploratory analysis → statistical testing → SQL analysis → dashboarding → business recommendations**.
+The project covers data cleaning, exploratory analysis, statistical testing, SQL, PostgreSQL, and a summary dashboard.
 
 ![Supply Chain Dashboard](dashboards/supply_chain_dashboard.svg)
 
-## Executive summary
+## What I wanted to understand
 
-The dataset contains **10,324 shipment records**. The analysis shows that Air is the dominant shipment mode, delivery timing is generally close to schedule at the median, and freight/weight fields require careful treatment because many non-numeric values contain meaningful operational information rather than true zeros.
+- Which shipment modes are used most often?
+- How closely do scheduled and actual delivery dates line up?
+- How do freight costs vary by shipment mode?
+- Which countries and vendors appear most often?
+- Is shipment weight associated with freight cost?
+- How should non-numeric freight/weight entries be handled without creating false values?
 
-### Verified highlights
+## Dataset
 
-- **10,324** shipment records analyzed
-- **Air:** 6,113 shipments (**59.21%**)
-- **Truck:** 2,830 shipments (**27.41%**)
-- **Air Charter:** 650 shipments (**6.30%**)
-- **Ocean:** 371 shipments (**3.59%**)
-- **Median delivered-minus-scheduled difference:** **0 days**
-- **Mean delivered-minus-scheduled difference:** **-6.02 days**
-- **Extreme delivery differences beyond ±100 days:** **216 records (2.09%)**
-- Numeric shipment weight available for **6,372 records (61.72%)**
-- Numeric freight cost available for **6,198 records (60.03%)**
+The analysis uses **10,324 shipment records** from the public SCMS Delivery History dataset.
 
-## Business questions
+A few headline numbers:
 
-The project focuses on practical supply-chain questions such as:
+- Air: **6,113 shipments (59.21%)**
+- Truck: **2,830 (27.41%)**
+- Air Charter: **650 (6.30%)**
+- Ocean: **371 (3.59%)**
+- Median delivered-minus-scheduled difference: **0 days**
+- Mean delivered-minus-scheduled difference: **-6.02 days**
+- Records outside ±100 days: **216 (2.09%)**
+- Numeric weight available: **6,372 records (61.72%)**
+- Numeric freight cost available: **6,198 records (60.03%)**
 
-- Which shipment modes are used most frequently?
-- How do freight costs differ by shipment mode?
-- Which countries and vendors account for the most shipments?
-- How closely do scheduled and actual delivery dates align?
-- Which shipment modes have higher late-delivery rates?
-- What relationship exists between shipment weight and freight cost?
-- How should missing or non-numeric operational fields be handled without creating false information?
+## A data-cleaning decision that mattered
 
-## Analytical approach
+The freight and weight columns are not simply numeric-with-missing-values. Some rows contain text such as values being **captured separately** or freight being **included elsewhere**.
 
-### 1. Data quality and cleaning
+I did **not** replace those values with zero. Instead, I kept the original source fields and created separate numeric analysis columns. That preserves the operational meaning while still allowing calculations on rows where numeric values are available.
 
-The raw dataset is inspected for schema, missing values, cardinality, date formats, and non-numeric freight/weight entries.
+## Analysis
 
-The cleaning process:
+### Python / EDA
 
-- converts delivery dates to usable datetime fields
-- creates numeric `Weight_kg` and `Freight_Cost_USD` fields where possible
-- preserves original source text instead of incorrectly replacing non-numeric values with zero
-- calculates `Delivery_Delay_Days`
-- flags unusually large delivery differences for separate review
+The Python analysis looks at:
 
-### 2. Exploratory data analysis
-
-Python analysis covers:
-
-- shipment-mode distribution
-- top destination countries
-- top vendors
-- freight-cost summaries by shipment mode
+- shipment-mode mix
+- top destination countries and vendors
+- freight-cost summaries by mode
 - delivery timing and late-rate patterns
-- freight-per-kilogram where both numeric values are available
-- extreme delivery records
+- freight per kilogram where both fields are numeric
+- extreme delivery-date differences
 
-### 3. Statistical analysis
+### Statistical checks
 
-The project includes:
+I used:
 
-- **Spearman correlation** between shipment weight and freight cost
-- **Kruskal-Wallis test** for freight-cost differences across shipment modes
-- **Chi-square test** for association between shipment mode and delivery status
+- **Spearman correlation** for weight vs. freight cost
+- **Kruskal-Wallis** to compare freight-cost distributions across shipment modes
+- **Chi-square** to check association between shipment mode and delivery status
 
-These methods were selected because operational shipment data is not assumed to be normally distributed.
+I chose non-parametric methods where appropriate rather than assuming the operational data was normally distributed.
 
-### 4. SQL / PostgreSQL
+### SQL / PostgreSQL
 
-The SQL layer includes a relational schema and business queries for:
+The SQL folder includes a schema and queries for shipment counts, mode share, vendor/country rankings, freight summaries, delivery performance, and freight-per-kilogram calculations.
 
-- shipment counts and shares by mode
-- country and vendor rankings
-- freight-cost summaries
-- delivery-performance comparisons
-- late-rate analysis
-- freight-per-kilogram calculations
+## What stood out
 
-### 5. Dashboard and recommendations
+1. **Air dominates the data.** Nearly 60% of shipment records use Air, so overall patterns are heavily influenced by that mode.
+2. **The median tells a different story from the mean.** Median delivery difference is 0 days, while the mean is -6.02 days because a small number of large early/late values pull the average.
+3. **Extreme records need review, not automatic deletion.** I flagged 216 records outside ±100 days instead of silently removing them.
+4. **Missingness can contain information.** Some non-numeric freight and weight values describe how the cost or weight was recorded, so zero-filling would be misleading.
+5. **Freight comparisons need context.** Shipment mode and weight should be considered before treating one shipment as simply “more expensive” than another.
 
-The recruiter-facing dashboard summarizes the verified headline metrics, while the findings document translates the analysis into business recommendations.
+The longer write-up is in [`docs/business_findings.md`](docs/business_findings.md).
 
-## Key findings
-
-1. **Air dominates the shipment mix.** Air represents 59.21% of all records, so aggregate results are heavily influenced by air shipments.
-2. **Median delivery timing is more informative than the mean.** The median delivery difference is 0 days, while the mean is -6.02 days because the distribution contains large early/late observations.
-3. **Extreme delivery differences should be investigated, not automatically deleted.** 216 records fall outside ±100 days.
-4. **Missingness carries operational meaning.** Freight and weight fields include text such as values being captured separately or invoiced differently; treating these entries as zero would distort analysis.
-5. **Cost comparisons should be segmented.** Shipment mode and weight should be considered when comparing freight cost.
-
-See [`docs/business_findings.md`](docs/business_findings.md) for the full interpretation and recommendations.
-
-## Tools and skills demonstrated
-
-- Python
-- pandas
-- NumPy
-- Matplotlib
-- SciPy
-- SQL
-- PostgreSQL
-- SQLAlchemy
-- exploratory data analysis
-- statistical testing
-- data cleaning
-- KPI development
-- dashboard design
-- business analysis
-- Git / GitHub
-
-## Repository structure
+## Project files
 
 ```text
 supply-chain-analytics/
-├── data/                    # Dataset notes; raw/cleaned CSVs are gitignored
+├── data/                    # Data notes; raw/cleaned CSVs are gitignored
 ├── dashboards/
 │   └── supply_chain_dashboard.svg
 ├── docs/
@@ -141,48 +101,29 @@ supply-chain-analytics/
 └── README.md
 ```
 
-## Reproduce the analysis
-
-Install the required packages:
+## Reproduce it
 
 ```bash
 pip install -r requirements.txt
-```
-
-Run the full Python pipeline:
-
-```bash
 python run_pipeline.py
 ```
 
-The pipeline downloads the public dataset, inspects it, cleans it, runs exploratory analysis, and performs the statistical analysis.
+That downloads the public dataset, runs the inspection/cleaning steps, performs the EDA, and runs the statistical analysis.
 
-To load the cleaned data into PostgreSQL:
+For PostgreSQL:
 
 ```bash
 python src/load_postgres.py
 ```
 
-Then run the queries in:
+Then run `sql/analysis_queries.sql`.
 
-```text
-sql/analysis_queries.sql
-```
+## Stack
 
-## Project status
+Python · pandas · NumPy · Matplotlib · SciPy · SQL · PostgreSQL · SQLAlchemy · Git/GitHub
 
-- [x] Dataset selection and documentation
-- [x] Data inspection
-- [x] Data cleaning
-- [x] Python exploratory analysis
-- [x] Statistical analysis
-- [x] PostgreSQL schema and SQL business queries
-- [x] Dashboard
-- [x] Business findings and recommendations
-- [x] Reproducible pipeline
+## Limitations
 
-**Status: complete portfolio case study.**
+This is observational shipment data, so relationships in the analysis should not be read as causal. The dataset also should not be treated as a complete picture of all PEPFAR purchasing or total landed cost, and some orders may be split across multiple shipment records.
 
-## Data note
-
-The source dataset contains operational records and should not be interpreted as a complete view of all PEPFAR purchases or total landed cost. Some orders may be represented across multiple shipment records, and observational relationships should not be interpreted as causal effects.
+The dashboard in this repo is a static summary for GitHub. A BI version with interactive filters would be a separate extension rather than something I want to imply is already built here.
