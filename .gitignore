@@ -1,2 +1,7 @@
 data/raw/*.csv
 data/cleaned_supply_chain.csv
+outputs/*.csv
+dashboards/generated/*.png
+__pycache__/
+.venv/
+.env
