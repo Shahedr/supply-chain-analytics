@@ -1,33 +1,41 @@
 # Dataset Selection Notes
 
-## Dataset chosen
+## Dataset
 
 **USAID Supply Chain Shipment Pricing / SCMS Delivery History**
 
+Official Data.gov listing: https://catalog.data.gov/dataset/supply-chain-shipment-pricing-data
+
+Common CSV filename: `SCMS_Delivery_History_Dataset.csv`
+
 ## Why I chose it
 
-I wanted a dataset that felt closer to a real supply chain problem than a small synthetic example. This dataset gives the project enough depth to analyze shipment cost, delivery timing, vendors, countries, shipment modes, products, and order details.
+I wanted a public dataset that looked more like an operational supply-chain file than a small classroom table. It includes shipment mode, vendor, destination country, product information, delivery dates, freight cost, and shipment weight, which gave me enough range to ask both data-quality and business questions.
 
-It is also large enough to support multiple stages of the project, including Python analysis, SQL queries, visualization, and potentially a prediction problem later.
+The final dataset used in the project contains **10,324 shipment records**.
 
-## Source
+## What made the dataset useful
 
-- U.S. Agency for International Development (USAID) public supply chain data
-- Data.gov listing: https://catalog.data.gov/dataset/supply-chain-shipment-pricing-data
-- Common file name: `SCMS_Delivery_History_Dataset.csv`
+The most useful part was not just its size. Several fields require judgment:
 
-## Project scope
+- freight and weight contain both numeric values and operational text
+- scheduled vs. delivered dates create a measurable delivery-timing field
+- shipment modes have very different record counts
+- some delivery differences are extreme enough to require review
+- shipment and order grain should not be assumed to be identical
 
-This dataset will be used to:
+Those issues made the dataset a better fit for a full analytics case study than a perfectly clean example dataset.
 
-- inspect and validate raw CSV data
-- clean dates, numeric fields, and missing values
-- compare shipment cost and delivery performance
-- analyze vendors, countries, shipment modes, and products
-- write SQL queries against cleaned data
-- build supply chain KPIs and visualizations
-- evaluate whether the data supports a useful prediction problem later
+## How I used it
 
-## Notes
+The project now includes:
 
-The dataset has not been analyzed yet. The next step is to inspect the file and confirm what each column contains before finalizing the analysis questions.
+- raw-data inspection
+- date and numeric-field cleaning
+- shipment-mode, country, vendor, freight, and delivery analysis
+- statistical checks
+- PostgreSQL/SQL analysis
+- a static summary dashboard
+- business findings and limitations
+
+I decided not to add a predictive model to this repo without a stronger target/use case; the analysis is intentionally focused on descriptive and diagnostic questions.
