@@ -1,25 +1,28 @@
-# Project Plan
+# Project Scope Notes
 
-## Objective
-Build a realistic end-to-end supply chain analytics portfolio project that demonstrates business analysis, Python, SQL, statistics, visualization, and progressively more advanced data workflows.
+I started this project with one goal: build a supply-chain analysis around a real public dataset and carry the same data through cleaning, Python analysis, SQL, statistics, and a final summary.
 
-## Learning Approach
-Each new technical concept will be learned in the context of this project and immediately applied to a real task.
+## Scope I completed
 
-## Milestones
-1. Data selection and documentation
-2. Data inspection with Python
-3. Data cleaning and validation
-4. Exploratory data analysis
-5. SQL and PostgreSQL analysis
-6. Statistical analysis
-7. Dashboard development
-8. Business recommendations
-9. Repository polish and portfolio presentation
+- [x] Select and document the dataset
+- [x] Inspect the raw CSV
+- [x] Clean dates and numeric fields without overwriting source values
+- [x] Explore shipment modes, countries, vendors, freight, and delivery timing
+- [x] Add PostgreSQL schema and SQL business queries
+- [x] Add statistical checks for freight and delivery relationships
+- [x] Create a static dashboard summary
+- [x] Write business findings and limitations
+- [x] Make the workflow reproducible from a single pipeline script
 
-## Working Rules
-- Use only public or synthetic data.
-- Keep raw data unchanged whenever possible.
-- Document assumptions and limitations.
-- Prefer readable, reusable code over one-off scripts.
-- Use branches and pull requests for meaningful changes.
+## Working rules I kept
+
+- use public data
+- leave raw data unchanged
+- preserve meaningful source text instead of forcing everything to numeric
+- flag questionable records before deciding whether to remove them
+- document assumptions and limitations
+- keep analysis code readable enough to rerun and challenge later
+
+## Deliberately out of scope
+
+I did not add a predictive model just to make the project look more advanced. The current dataset already supports a strong descriptive/diagnostic case study, and I would only add prediction if there were a clearly defined target and business use case.
